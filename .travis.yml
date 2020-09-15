@@ -13,7 +13,7 @@ after_success:
     - docker build -t silvercodex/multi-nginx ./nginx
     - docker build -t silvercodex/multi-server ./server
     - docker build -t silvercodex/multi-worker ./worker
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --passwprd=stdin
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password=stdin
     - docker push silvercodex/multi-client 
     - docker push silvercodex/multi-nginx 
     - docker push silvercodex/multi-server 
