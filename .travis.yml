@@ -1,0 +1,20 @@
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker built -t silvercodex/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run -e CI=true silvercodex/react-test npm run test
+
+after_success:
+    - docker build -t silvercodex/multi-client ./client
+    - docker build -t silvercodex/multi-nginx ./nginx
+    - docker build -t silvercodex/multi-server ./server
+    - docker build -t silvercodex/multi-worker ./worker
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --passwprd=stdin
+    - docker push silvercodex/multi-client 
+    - docker push silvercodex/multi-nginx 
+    - docker push silvercodex/multi-server 
+    - docker push silvercodex/multi-worker
