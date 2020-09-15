@@ -3,7 +3,7 @@ services:
     - docker
 
 before_install:
-    - docker built -t silvercodex/react-test -f ./client/Dockerfile.dev ./client
+    - docker build -t silvercodex/react-test -f ./client/Dockerfile.dev ./client
 
 script:
     - docker run -e CI=true silvercodex/react-test npm run test
